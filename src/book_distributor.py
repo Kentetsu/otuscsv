@@ -22,17 +22,25 @@ JSON_FILE_PATH = get_path(filename="users.json")
 with open(JSON_FILE_PATH, newline='') as jsonfile:
     users = json.loads(jsonfile.read())
 
-
+results = []
+result = {}
 for user in users:
-    user.update(books=[])
+    result.update({"name": user.pop('name')})
+    result.update({"gender": user.pop('gender')})
+    result.update({"address": user.pop('address')})
+    result.update({"age": user.pop('age')})
+    result.update({"books": []})
+    results.append(result)
 
 
 while bool(complete_book):
-    for user in users:
+    for resul in results:
         try:
-            user['books'].append(complete_book.pop())
+            resul['books'].append(complete_book.pop())
         except IndexError:
             break
 
+
 with open('result.json', 'w') as output_file:
-    output_file.write(json.dumps(users, indent=4))
+    output_file.write(json.dumps(results, indent=4))
+
