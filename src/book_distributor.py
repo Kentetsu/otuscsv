@@ -23,8 +23,9 @@ with open(JSON_FILE_PATH, newline='') as jsonfile:
     users = json.loads(jsonfile.read())
 
 results = []
-result = {}
+
 for user in users:
+    result = {}
     result.update({"name": user.pop('name')})
     result.update({"gender": user.pop('gender')})
     result.update({"address": user.pop('address')})
